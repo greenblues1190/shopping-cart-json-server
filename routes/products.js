@@ -1,17 +1,8 @@
-const { Router, json, urlencoded } = require('express');
+const { Router } = require('express');
+const { bodyParsingHandler, errorHandler } = require('../utils/sharedRoutes');
 const toNumber = require('../utils/toNumber');
 const createTimestamp = require('../utils/createTimestamp');
 const getDB = require('../utils/getDB');
-
-const bodyParsingHandler = [
-  json({ limit: '10mb' }),
-  urlencoded({ extended: false }),
-];
-
-const errorHandler = (err, req, res, next) => {
-  console.error(err);
-  res.status(500).jsonp(err.message);
-};
 
 const insert = (req, res, next) => {
   createTimestamp(req);
